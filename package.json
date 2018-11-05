@@ -1,7 +1,7 @@
 {
   "name": "@mousepox/tween",
   "description": "Tween",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "ISC",
   "main": "dist/index.js",
   "files": [
@@ -14,10 +14,10 @@
     "prepublish": "yarn lint && yarn build"
   },
   "devDependencies": {
-    "tslint": "^5.10.0",
-    "typescript": "^2.8.3"
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.0"
   },
-  "author": "Geoff Blair <gmblair@gmail.com>",
+  "author": "Geoff Blair <geoff@mousepox.io>",
   "publishConfig": {
     "access": "public"
   }
