@@ -32,8 +32,9 @@ export class TweenGroup {
     }
 
     // Remove completed tweens
-    for (const index of complete) {
-      this.tweens.splice(index, 1);
+    // Loop backwards in order to splice higher indices before lower indices
+    for (let i = complete.length - 1; i >= 0; --i) {
+      this.tweens.splice(complete[i], 1);
     }
   }
 
