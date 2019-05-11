@@ -10,6 +10,7 @@ const enum TweenType {
   Call,
   To,
   Wait,
+  Loop,
 }
 
 interface ITweenCall {
@@ -32,7 +33,12 @@ interface ITweenWait {
   elapsed: number;
 }
 
-type TweenQueueItem = ITweenCall | ITweenTo | ITweenWait;
+interface ITweenLoop {
+  type: TweenType.Loop;
+  count: number;
+}
+
+type TweenQueueItem = ITweenCall | ITweenTo | ITweenWait | ITweenLoop;
 
 function lerp(a: number, b: number, t: number): number {
   return a + ((b - a) * t);
@@ -65,6 +71,7 @@ export class Tween {
   public to(props: ITweenProperties, duration: number, easing?: EasingFunction): Tween {
     this.queue.push({
       duration,
+      easing,
       elapsed: 0,
       from: {},
       to: props,
@@ -79,13 +86,16 @@ export class Tween {
       const item = this.queue[this.queueIndex];
       switch (item.type) {
         case TweenType.Call:
-          used = this.processCall(item, dt);
+          used = this.processCall(item);
           break;
         case TweenType.To:
           used = this.processTo(item, dt);
           break;
         case TweenType.Wait:
           used = this.processWait(item, dt);
+          break;
+        case TweenType.Loop:
+          this.processLoop(item);
           break;
       }
       dt -= used;
@@ -101,7 +111,15 @@ export class Tween {
     return this;
   }
 
-  private processCall(tween: ITweenCall, dt: number): number {
+  public loop(count = Infinity): Tween {
+    this.queue.push({
+      count,
+      type: TweenType.Loop,
+    });
+    return this;
+  }
+
+  private processCall(tween: ITweenCall): number {
     tween.callback();
     this.queueIndex++;
     return 0;
@@ -134,6 +152,7 @@ export class Tween {
     }
 
     if (tween.elapsed >= tween.duration) {
+      tween.elapsed = 0;
       this.queueIndex++;
     }
 
@@ -144,9 +163,21 @@ export class Tween {
     const used = Math.min(tween.duration - tween.elapsed, dt);
     tween.elapsed += used;
     if (tween.elapsed >= tween.duration) {
+      tween.elapsed = 0;
       this.queueIndex++;
     }
     return used;
+  }
+
+  private processLoop(tween: ITweenLoop) {
+    if (tween.count > 0) {
+      // Keep looping
+      tween.count--;
+      this.queueIndex = 0;
+    } else {
+      // Stop looping
+      this.queueIndex++;
+    }
   }
 
 }
