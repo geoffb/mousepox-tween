@@ -1,6 +1,6 @@
 {
   "name": "@mousepox/tween",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Tween object properties from one value to another over time.",
   "keywords": [
     "game",
