@@ -1,15 +1,25 @@
 {
   "name": "@mousepox/tween",
-  "description": "Tween",
   "version": "0.1.1",
+  "description": "Tween object properties from one value to another over time.",
+  "keywords": [
+    "game",
+    "tween",
+    "typescript"
+  ],
+  "author": "Geoff Blair <geoff@mousepox.io>",
   "license": "ISC",
   "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
   "types": "dist/index.d.ts",
+  "module": "dist-es/index.js",
+  "files": [
+    "dist",
+    "dist-es"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "yarn build:cjs && yarn build:es",
+    "build:cjs": "tsc",
+    "build:es": "tsc -p tsconfig-es.json",
     "lint": "tslint -c tslint.json 'lib/**/*.ts'",
     "prepublish": "yarn lint && yarn build"
   },
@@ -17,7 +27,6 @@
     "tslint": "^5.11.0",
     "typescript": "^3.1.0"
   },
-  "author": "Geoff Blair <geoff@mousepox.io>",
   "publishConfig": {
     "access": "public"
   }
