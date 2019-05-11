@@ -18,6 +18,12 @@ export class TweenGroup {
     }
   }
 
+  public create(target: any): Tween {
+    const tween = new Tween(target);
+    this.tweens.push(tween);
+    return tween;
+  }
+
   // Update all tweens in this group
   public update(dt: number) {
     const complete: number[] = [];
