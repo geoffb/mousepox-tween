@@ -1,17 +1,17 @@
 export * from "./Tween";
 export * from "./TweenGroup";
 
-export const ease = {
+export const Ease = {
 
-  quadIn(k: number): number {
+  QuadIn(k: number): number {
     return k * k;
   },
 
-  quadOut(k: number): number {
+  QuadOut(k: number): number {
     return k * (2 - k);
   },
 
-  quadInOut(k: number): number {
+  QuadInOut(k: number): number {
     k *= 2;
     if (k < 1) {
       return 0.5 * k * k;
