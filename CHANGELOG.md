@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+* Add `Tween.promise`
+
 ## 0.2.0
 
 * Add `Tween.loop` method
