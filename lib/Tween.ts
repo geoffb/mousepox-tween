@@ -119,6 +119,10 @@ export class Tween {
     return this;
   }
 
+  public promise(): Promise<void> {
+    return new Promise((resolve) => this.call(resolve));
+  }
+
   private processCall(tween: ITweenCall): number {
     tween.callback();
     this.queueIndex++;
