@@ -20,11 +20,9 @@
     "build": "yarn build:cjs && yarn build:es",
     "build:cjs": "tsc",
     "build:es": "tsc -p tsconfig-es.json",
-    "lint": "tslint -c tslint.json 'lib/**/*.ts'",
-    "prepublish": "yarn lint && yarn build"
+    "prepublish": "yarn build"
   },
   "devDependencies": {
-    "tslint": "^5.11.0",
     "typescript": "^3.1.0"
   },
   "publishConfig": {
