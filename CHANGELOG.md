@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+* Add `Ease.Back(In|Out)`
+* Defer tween cancellation until update
+
 ## 0.3.0
 
 * Add `Tween.promise`
