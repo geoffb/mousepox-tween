@@ -52,6 +52,8 @@ export class Tween {
 
   private queueIndex = 0;
 
+  public cancel = false;
+
   public get complete(): boolean {
     return this.queueIndex >= this.queue.length;
   }

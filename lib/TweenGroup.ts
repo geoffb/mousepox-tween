@@ -13,7 +13,8 @@ export class TweenGroup {
   public cancel(target?: any) {
     for (let i = this.tweens.length - 1; i >= 0; --i) {
       if (target === undefined || this.tweens[i].target === target) {
-        this.tweens.splice(i, 1);
+        // Defer removal of tweens until next update cycle
+        this.tweens[i].cancel = true;
       }
     }
   }
@@ -31,6 +32,10 @@ export class TweenGroup {
     // Update tweens
     for (let i = 0; i < this.tweens.length; ++i) {
       const tween = this.tweens[i];
+      if (tween.cancel) {
+        complete.push(i);
+        continue;
+      }
       tween.update(dt);
       if (tween.complete) {
         complete.push(i);
